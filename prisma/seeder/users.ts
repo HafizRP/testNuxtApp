@@ -3,6 +3,8 @@ import * as argon from "argon2";
 const prisma = new PrismaClient();
 
 async function main() {
+  console.log("-- Running user seeder...");
+
   const user = await prisma.user.count();
 
   // Delete all available user if there is
@@ -18,11 +20,25 @@ async function main() {
         email: "admin@gmail.com",
         username: "Admin",
         password: await argon.hash("useradmin"),
+        roleId: (
+          await prisma.role.findFirst({
+            where: {
+              roleName: "Admin",
+            },
+          })
+        )?.id as number,
       },
       {
         email: "worker@gmail.com",
         username: "Worker",
         password: await argon.hash("userworker"),
+        roleId: (
+          await prisma.role.findFirst({
+            where: {
+              roleName: "Admin",
+            },
+          })
+        )?.id as number,
       },
     ],
   });

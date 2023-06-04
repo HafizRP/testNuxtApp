@@ -6,20 +6,20 @@
     <section id="body" class="container mx-auto px-4">
         <VeeForm :validation-schema="schema" as="div" v-slot="{ errors, handleSubmit, isSubmitting }">
             <form @submit="handleSubmit($event, createUser)">
-                <div class="mb-4">
+                <div class="mb-2">
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                     <Field name="email" type="email" id="email" placeholder="E-Mail"
                         :class="[{ 'border-red-700': typeof errors.email !== 'undefined' }, 'bg-gray-50 border border-gray-300  border-2 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white']" />
                     <ErrorMessage class="invalid-msg" name="email" />
                 </div>
-                <div class="mb-6">
+                <div class="mb-2">
                     <label for="username"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
                     <Field name="username" type="text" id="username" placeholder="Username"
                         :class="[{ 'border-red-700': typeof errors.username !== 'undefined' }, 'bg-gray-50 border border-gray-300  border-2 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white']" />
                     <ErrorMessage class="invalid-msg" name="username" />
                 </div>
-                <div class="mb-6">
+                <div class="mb-2">
                     <label for="password"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                     <Field name="password" type="password" id="password" placeholder="Password"
@@ -109,7 +109,7 @@ const schema = yup.object({
 });
 
 function dateFormat(date: string) {
-    return new Intl.DateTimeFormat('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }).format(new Date(date))
+    return new Intl.DateTimeFormat('en-US', { month: '2-digit', day: '2-digit', year: 'numeric', hour: "2-digit", minute: '2-digit' }).format(new Date(date))
 }
 
 async function createUser(values: any) {
@@ -126,6 +126,8 @@ async function createUser(values: any) {
 useHead({
     title: "Users Page",
 });
+
+definePageMeta({ middleware: "auth" })
 </script>
 
 <style scoped></style>

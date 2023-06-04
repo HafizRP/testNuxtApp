@@ -4,8 +4,14 @@
   </div>
 </template>
 
-<script setup>
-import { onMounted } from 'vue'
+<script setup lang="ts">
+// import { initFlowbite } from 'flowbite'
+
+// // initialize components based on data attribute selectors
+// onMounted(() => {
+//   initFlowbite();
+// })
+
 import {
   initAccordions,
   initCarousels,
