@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import "#supabase/server";
 
 const prisma = new PrismaClient();
 

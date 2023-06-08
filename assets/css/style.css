@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @layer components {
+
+  body {
+    @apply dark:bg-gray-700
+  }
+
+
   .invalid-msg {
     @apply first-letter:capitalize inline-block text-red-600 text-sm;
   }

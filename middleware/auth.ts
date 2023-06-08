@@ -1,23 +1,7 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-  const token = useCookie("token");
+  const user = useSupabaseUser();
 
-  console.log(typeof token.value);
-
-  //   if (typeof token.value !== "string") {
-  //     return abortNavigation();
-  //   }
-
-  if (!token.value) {
-    return navigateTo("/login");
+  if (!user.value) {
+    return abortNavigation();
   }
-
-  //   const token = getCookie("user_info");
-  // const token
-  //   console.log(token.value);
-  //   if (to.params.id === "1") {
-  //     return abortNavigation();
-  //   }
-  //   if (to.path !== "/") {
-  //     return navigateTo("/");
-  //   }
 });
