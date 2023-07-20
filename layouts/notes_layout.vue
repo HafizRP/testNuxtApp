@@ -3,7 +3,7 @@
         <Navbar />
     </header>
 
-    <section class="container mx-auto">
+    <section class="container mx-auto bg-transparent">
         <slot />
     </section>
 </template>

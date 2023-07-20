@@ -3,14 +3,14 @@
     <Navbar />
   </header>
 
-  <section id="body" class="container mx-auto px-4">
-    <VeeForm :validation-schema="schema" as="div" v-slot="{ errors, handleSubmit, isSubmitting }">
+  <section id="body" class="container mx-auto dark:bg-gray-900">
+    <VeeForm class="px-4" :validation-schema="schema" as="div" v-slot="{ errors, handleSubmit, isSubmitting }">
       <form @submit="handleSubmit($event, createUser)">
         <div class="mb-2">
           <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
           <Field name="email" type="email" id="email" placeholder="E-Mail" :class="[
             { 'border-red-700': typeof errors.email !== 'undefined' },
-            'bg-gray-50 border border-gray-300  border-2 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white',
+            'bg-gray-50 border-gray-300  border-2 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white',
           ]" />
           <ErrorMessage class="invalid-msg" name="email" />
         </div>
@@ -30,26 +30,6 @@
           ]" />
           <ErrorMessage class="invalid-msg" name="password" />
         </div>
-
-        <!-- <div class="mb-2">
-          <label
-            for="roleName"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Select an option</label
-          >
-          <Field
-            as="select"
-            id="roleName"
-            name="roleName"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            <option value="" selected disabled hidden>Role</option>
-            <option value="User">User</option>
-            <option value="Admin">Admin</option>
-          </Field>
-
-          <ErrorMessage name="roleName" class="invalid-msg" />
-        </div> -->
 
         <button type="submit" :disabled="isSubmitting"
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

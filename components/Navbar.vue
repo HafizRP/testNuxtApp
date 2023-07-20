@@ -12,9 +12,8 @@
           Get started
         </NuxtLink>
 
-
         <div v-else>
-          <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName"
+          <button id="pill-user-button" data-dropdown-toggle="pill-user-dropdown"
             class="flex items-center text-sm font-medium p-2 text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
             type="button">
             <span class="sr-only">Open user menu</span>
@@ -29,7 +28,7 @@
             </svg>
           </button>
 
-          <div id="dropdownAvatarName"
+          <div id="pill-user-dropdown"
             class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
             <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
               <div class="font-medium">Pro User</div>
@@ -47,7 +46,7 @@
               </li>
               <li>
                 <div class="inline-flex justify-between w-full px-4">
-                  <span class="my-auto">Dark Mode</span>
+                  <span class="my-auto">Dark Mode {{ isDarkMode }}</span>
                   <div>
                     <label class="relative inline-flex items-center cursor-pointer">
                       <input type="checkbox" value="" class="sr-only peer" @change="darkMode" :checked="isDarkMode">
@@ -57,16 +56,6 @@
                     </label>
                   </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
               </li>
             </ul>
             <div class="py-2">
@@ -118,13 +107,19 @@
 </template>
 
 <script setup lang="ts">
+import { Icon } from '@iconify/vue'
+import { initFlowbite } from 'flowbite';
+
+
+const nuxtApp = useNuxtApp()
 const user = useSupabaseUser();
 const supabase = useSupabaseClient();
 const isDarkMode = useState<boolean>('darkMode')
 
-function onChange() {
-  console.log("Change")
-}
+
+nuxtApp.hook('page:finish', () => {
+  initFlowbite()
+})
 
 async function darkMode() {
   if (localStorage.getItem('color-theme')) {
@@ -149,6 +144,7 @@ async function darkMode() {
     }
   }
 }
+
 
 
 async function logout() {
