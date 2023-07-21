@@ -19,7 +19,7 @@
             <div>
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
               <Field type="email" name="email" id="email"
-                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 invalid:border-red-500"
                 placeholder="name@company.com" />
               <ErrorMessage name="email" class="invalid-msg" />
             </div>
@@ -37,10 +37,17 @@
               <span v-else> Sign in </span>
             </button>
 
-            <button type="button" @click="loginWithGithub"
-              class="w-full text-white bg-gray-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-              Github
-            </button>
+            <div class="flex items-center justify-center space-x-10">
+              <a class="cursor-pointer" type="button" @click="loginWithGithub">
+                <Icon icon="devicon:github" height="50"></Icon>
+              </a>
+
+              <a class="cursor-pointer" type="button">
+                <Icon icon="devicon:google" height="50"></Icon>
+              </a>
+            </div>
+
+
             <p class="text-sm font-light text-gray-500 dark:text-gray-400">
               Don’t have an account yet?
               <a href="/register" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
@@ -53,6 +60,7 @@
 </template>
 
 <script setup lang="ts">
+import { Icon } from "@iconify/vue";
 import { Form as VeeForm, ErrorMessage, Field } from "vee-validate";
 import * as yup from "yup";
 
@@ -64,7 +72,7 @@ const schema = yup.object({
 });
 
 async function loginWithGithub() {
-  const { error } = await supabase.auth.signInWithOAuth({ provider: 'github', options: { redirectTo: `${window.location.origin}/users` } })
+  const { error } = await supabase.auth.signInWithOAuth({ provider: 'github' })
 
   if (error) {
     throw createError({ statusCode: 400, message: error.message })
@@ -74,13 +82,12 @@ async function loginWithGithub() {
 
 async function onSubmit(values: any, { setErrors }: any) {
   const { error } = await supabase.auth.signInWithPassword({ ...values });
-
   if (error) {
     setErrors({ apiError: error.message });
     return;
   }
 
-  return navigateTo("/users", { external: true });
+  return navigateTo("/users");
 }
 
 

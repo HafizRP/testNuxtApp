@@ -3,11 +3,9 @@
 @tailwind utilities;
 
 @layer components {
-
   body {
     @apply dark:bg-gray-700
   }
-
 
   .invalid-msg {
     @apply first-letter:capitalize inline-block text-red-600 text-sm;
@@ -19,16 +17,6 @@
 
 
   .nav-link-active {
-    @apply text-blue-500 font-bold !important;
+    @apply text-white bg-blue-500 md:text-blue-500 md:bg-transparent font-bold !important;
   }
-}
-
-.page-enter-active,
-.page-leave-active {
-  transition: all 0.4s;
-}
-.page-enter-from,
-.page-leave-to {
-  opacity: 0;
-  filter: blur(1rem);
 }
