@@ -4,4 +4,9 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss", "@nuxtjs/supabase"],
   css: ["@/assets/css/style.css"],
   tailwindcss: {},
+  router: {
+    options: {
+      linkActiveClass: "nav-link-active"
+    }
+  }
 });
