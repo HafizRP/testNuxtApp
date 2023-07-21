@@ -30,9 +30,9 @@
 
           <div id="pill-user-dropdown"
             class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-            <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-              <div class="font-medium">Pro User</div>
-              <div class="truncate">name@flowbite.com</div>
+            <div class="px-4 py-3 text-sm text-gray-900 dark:text-white space-y-2">
+              <div class="font-medium">{{ user.role }}</div>
+              <div class="truncate">{{ user.phone || 'Not Configured' }}</div>
             </div>
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
               aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
@@ -46,7 +46,7 @@
               </li>
               <li>
                 <div class="inline-flex justify-between w-full px-4">
-                  <span class="my-auto">Dark Mode</span>
+                  <span class="my-auto cursor-default">Dark Mode</span>
                   <div>
                     <label class="relative inline-flex items-center cursor-pointer">
                       <input type="checkbox" value="" class="sr-only peer" @change="darkMode" :checked="isDarkMode">
@@ -105,14 +105,14 @@
 </template>
 
 <script setup lang="ts">
-import { Icon } from '@iconify/vue'
 import { initFlowbite } from 'flowbite';
-
 
 const nuxtApp = useNuxtApp()
 const user = useSupabaseUser();
 const supabase = useSupabaseClient();
 const isDarkMode = useState<boolean>('darkMode')
+
+const colorMode = useColorMode()
 
 
 nuxtApp.hook('page:finish', () => {
@@ -120,27 +120,33 @@ nuxtApp.hook('page:finish', () => {
 })
 
 async function darkMode() {
-  if (localStorage.getItem('color-theme')) {
-    if (localStorage.getItem('color-theme') === 'light') {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('color-theme', 'dark');
-      isDarkMode.value = true
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('color-theme', 'light');
-      isDarkMode.value = false
-    }
-
-    // if NOT set via local storage previously
+  if (colorMode.value == 'dark') {
+    colorMode.preference = "light"
   } else {
-    if (document.documentElement.classList.contains('dark')) {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('color-theme', 'light');
-    } else {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('color-theme', 'dark');
-    }
+    colorMode.preference = "dark"
   }
+
+  // if (localStorage.getItem('color-theme')) {
+  //   if (localStorage.getItem('color-theme') === 'light') {
+  //     document.documentElement.classList.add('dark');
+  //     localStorage.setItem('color-theme', 'dark');
+  //     isDarkMode.value = true
+  //   } else {
+  //     document.documentElement.classList.remove('dark');
+  //     localStorage.setItem('color-theme', 'light');
+  //     isDarkMode.value = false
+  //   }
+
+  //   // if NOT set via local storage previously
+  // } else {
+  //   if (document.documentElement.classList.contains('dark')) {
+  //     document.documentElement.classList.remove('dark');
+  //     localStorage.setItem('color-theme', 'light');
+  //   } else {
+  //     document.documentElement.classList.add('dark');
+  //     localStorage.setItem('color-theme', 'dark');
+  //   }
+  // }
 }
 
 
