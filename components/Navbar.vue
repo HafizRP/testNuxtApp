@@ -18,8 +18,9 @@
             type="button">
             <span class="sr-only">Open user menu</span>
             <img class="w-8 h-8 mr-2 rounded-full"
-              :src="user.user_metadata.avatar_url || '/docs/images/people/profile-picture-3.jpg'" alt="user photo" />
-            {{ user?.user_metadata.first_name || user.user_metadata.user_name }}
+              :src="user.user_metadata.avatar_url || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKmDZfsJe6TJPmkiuGQsyD8e0UyJJmZCKIfg&usqp=CAU'"
+              alt="user photo" />
+            {{ user?.user_metadata.first_name || user.user_metadata.user_name || "John Doe" }}
             <svg class="w-4 h-4 mx-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
@@ -49,7 +50,8 @@
                   <span class="my-auto cursor-default">Dark Mode</span>
                   <div>
                     <label class="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" value="" class="sr-only peer" @change="darkMode" :checked="isDarkMode">
+                      <input type="checkbox" value="" class="sr-only peer" @change="darkMode"
+                        :checked="$colorMode.value == 'dark'">
                       <div
                         class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                       </div>

@@ -42,7 +42,7 @@
                 <Icon icon="devicon:github" height="50"></Icon>
               </a>
 
-              <a class="cursor-pointer" type="button">
+              <a class="cursor-pointer" type="button" @click="loginWithGmail">
                 <Icon icon="devicon:google" height="50"></Icon>
               </a>
             </div>
@@ -71,8 +71,23 @@ const schema = yup.object({
   password: yup.string().required(),
 });
 
+
 async function loginWithGithub() {
   const { error } = await supabase.auth.signInWithOAuth({ provider: 'github' })
+
+  if (error) {
+    throw createError({ statusCode: 400, message: error.message })
+  }
+}
+
+
+async function loginWithGmail() {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      scopes: "https://www.googleapis.com/auth/calendar"
+    }
+  })
 
   if (error) {
     throw createError({ statusCode: 400, message: error.message })
